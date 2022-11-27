@@ -1,10 +1,14 @@
 {
     "name": "@aarohiamit/coeus",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "author": "aarohiamit",
     "main": "coeus.js",
     "keywords": [],
     "licence": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/aarohi/coeus"
+    },
     "dependencies": {
         "json2csv": "^5.0.7",
         "moment": "^2.29.4",
