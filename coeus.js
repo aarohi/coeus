@@ -13,8 +13,9 @@ class Comment {
 }
 
 class Metric {
-    constructor(name, value) {
+    constructor(name, desc, value) {
         this.name = name;
+        this.description = desc;
         this.value = (value)?value:null;
     }
 }
@@ -44,12 +45,14 @@ class Reply extends Question {
 }
 
 class QuestionDoc {
-    constructor(id, name, author, questions) {
+    constructor(id, name, author, questions, desc) {
         this.id = id?uuidv4():id;
         this.name = name;
         this.author = author;
         this.questions = Array.isArray(questions)?questions:new Array();
+        this.description = desc;
         this.date = moment().format();
+        this.updated = moment().format();
     }
     set question(q) {
         if (q instanceof Question) this.questions.push(q);
