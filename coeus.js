@@ -26,7 +26,7 @@ class Question {
         this.metrics = Array.isArray(metrics)?metrics:new Array();
     }
     set metric(m) {
-        if (m instanceof Metric) this.metric.push(m);
+        if (m instanceof Metric) this.metrics.push(m);
         else throw new Error("Type-Error: Metric");
     }
 }
