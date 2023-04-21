@@ -21,28 +21,22 @@ class Metric {
 }
 
 class Question {
-    constructor(question, metrics) {
+    constructor(question, answer, comments, metrics) {
         this.question = question;
+        this.answer = (answer)?answer:'NA';
+        this.comments = Array.isArray(metrics)?metrics:new Array();
         this.metrics = Array.isArray(metrics)?metrics:new Array();
     }
     set metric(m) {
         if (m instanceof Metric) this.metrics.push(m);
         else throw new Error("Type-Error: Metric");
     }
-}
-
-class Reply extends Question {
-    constructor(question, metrics, reply, comments, date) {
-        super(question, metrics);
-        this.reply = reply;
-        this.comments = (Array.isArray(comments))?comments:new Array();
-        this.date = (date)?moment().format():date;
-    }
     set comment(c) {
         if (c instanceof Comment) this.comments.push(c);
         else throw new Error("Type-Error: Comment");
     }
 }
+
 
 class QuestionDoc {
     constructor(id, name, author, questions, desc) {
@@ -57,17 +51,6 @@ class QuestionDoc {
     set question(q) {
         if (q instanceof Question) this.questions.push(q);
         else throw new Error("Type-Error: Question");
-    }
-}
-
-class AnswerDoc {
-    constructor (qid, qname, name, author, replies) {
-        this.id = uuidv4();
-        this.qid = qid;
-        this.qname = qname;
-        this.name = name;
-        this.author = author;
-        this.replies = Array.isArray(replies)?replies:new Array();
     }
 }
 
@@ -87,7 +70,15 @@ function exportCSV(obj) {
     return new Parser().parse(obj);
 }
 
-/* ---- */
+exports.Comment = Comment;
+exports.Metric = Metric;
+exports.Question = Question;
+exports.QuestionDoc = QuestionDoc;
+
+exports.questionForm = questionForm;
+exports.loadQuestionForm = loadQuestionForm;
+exports.exportCSV = exportCSV;
+
 
 const InputType = {
     email: 'Email',
@@ -135,15 +126,3 @@ exports.Option = Option;
 exports.Shape = Shape;
 exports.Form = Form;
 
-
-exports.Reply = Reply;
-exports.Comment = Comment;
-exports.Metric = Metric;
-exports.Question = Question;
-exports.QuestionDoc = QuestionDoc;
-exports.AnswerDoc = AnswerDoc;
-
-exports.questionForm = questionForm;
-exports.loadQuestionForm = loadQuestionForm;
-exports.loadAnswerForm = loadAnswerForm;
-exports.exportCSV = exportCSV;
